@@ -8,6 +8,6 @@ import com.bdhobare.mpesa.utils.Pair;
  */
 
 public interface AuthListener {
-    public void onError(Pair<Integer, String> result);
-    public void onSuccess();
+    public void onAuthError(Pair<Integer, String> result);
+    public void onAuthSuccess();
 }
