@@ -128,7 +128,12 @@ public class Mpesa {
             JsonObject jo = (JsonObject) jsonParser.parse(result.message).getAsJsonObject();
             if (result.code/100 != 2){
                 //Error occurred
-                String message = jo.get("errorMessage").getAsString();
+                if (jo.has("errorMessage")) {
+                    String message = jo.get("errorMessage").getAsString();
+                    Mpesa.getInstance().mpesaListener.onMpesaError(new Pair<>(result.code, message));
+                    return;
+                }
+                String message = "Error completing payment.Please try again.";
                 Mpesa.getInstance().mpesaListener.onMpesaError(new Pair<>(result.code, message));
                 return;
             }

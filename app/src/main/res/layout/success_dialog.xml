@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:layout_centerInParent="true"
+    android:layout_gravity="center"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/success"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:srcCompat="@drawable/ic_check_circle_black_24dp"
+        android:layout_gravity="center_horizontal"/>
+    <android.support.v7.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:textSize="16sp"
+        android:id="@+id/message"
+        android:layout_gravity="center_horizontal"
+        android:text="Lorem Ipsum"
+        android:layout_height="wrap_content" />
+</LinearLayout>
