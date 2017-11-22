@@ -3,7 +3,7 @@ This SDK allows android developers to easily make MPESA payments on their apps.
 
 # Screenshots
 
-![Screenshots](https://github.com/bdhobare/mpesa-android-sdk/blob/master/1.jpg "Sample")
+![Screenshots](https://gitlab.com/bdhobare/mpesa-android-sdk/blob/master/1.jpg "Sample")
 
 # Features
 The SDK includes the following:
