@@ -3,7 +3,7 @@ This SDK allows android developers to easily make MPESA payments on their apps.
 
 # Screenshots
 
-![Screenshots](https://gitlab.com/bdhobare/mpesa-android-sdk/blob/master/1.jpg "Sample")
+![Screenshots](https://github.com/bdhobare/mpesa-android-sdk/blob/master/1.jpg "Sample")
 
 # Features
 The SDK includes the following:
@@ -117,10 +117,10 @@ Once the above steps are finished, the response from Safaricom will be sent to t
 Although the SDK is still under development and might be unstable, it can be used in live apps.
 The SDK  has two operating modes: `SANDBOX` (default) and `PRODUCTION`.
 To change to production mode, call these methods:
+ 
+```Mpesa.getInstance().setMode(Mode.PRODUCTION);```
 
-    ```Mpesa.getInstance().setMode(Mode.PRODUCTION);```
-    
-    ```Mpesa.getInstance().setProductionBaseURL(url);```
+``` Mpesa.getInstance().setProductionBaseURL(url); ```
 
    **NOTE: When you set the mode to production, you have to provide the production base url.For sandbox , the base url is `https://sandbox.safaricom.co.ke/`. Failure to provide the production base url will lead to failure in requests.**
 
