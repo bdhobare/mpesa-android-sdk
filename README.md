@@ -1,12 +1,10 @@
 # MPESA ANDROID SDK
 This SDK allows android developers to easily make MPESA payments on their apps.
 
-#Screenshots
+# Screenshots
+![alt text](https://github.com/safaricom/LNMOnlineAndroidSample/blob/master/a.jpg "Screen A")
 
-[logo]: https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Samples"
-
-#Features
-
+# Features
 The SDK includes the following:
 1. Android native  SDK to accept MPESA payments in less than 10 lines of code
 2. A sample backend in Laravel you can easily deploy to your server to quickly get started
