@@ -84,8 +84,8 @@ For running the sample project, you don't need to deploy your own backend. I hav
 6. Set up the callback url to the `STKPush.Builder` by calling this method:
 
     ```builder.setCallBackURL(http://YOUR_URL/mpesa)```
-    
-    Please note that the url is `YOUR_URL/mpesa` not `YOUR_URL`. `/mpesa` is a route in the backend.
+
+ Please note that the url is `YOUR_URL/mpesa` not `YOUR_URL`.  `/mpesa` is a route in the backend.
     
 Once the above steps are finished, the response from Safaricom will be sent to the backend and inserted into the database.
 
