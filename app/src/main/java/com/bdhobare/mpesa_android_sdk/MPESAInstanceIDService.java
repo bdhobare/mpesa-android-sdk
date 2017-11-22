@@ -16,7 +16,7 @@ public class MPESAInstanceIDService extends FirebaseInstanceIdService {
     public void onTokenRefresh() {
         // Get updated InstanceID token.
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
-        SharedPreferences sharedPreferences = getSharedPreferences("com.bdhobare.mpesa_android_sdk", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(MainActivity.SHARED_PREFERENCES, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("InstanceID", refreshedToken);
         editor.commit();

@@ -73,12 +73,14 @@ public class MPESAMessagingService extends FirebaseMessagingService {
             JSONObject data = json.getJSONObject("data");
             String title = data.getString("title");
             String message = data.getString("message");
+            int code = data.getInt("code");
             //TODO read more attributes here
             sendNotification(title, message);
 
             Intent pushNotification = new Intent(MainActivity.NOTIFICATION);
             pushNotification.putExtra("message", message);
             pushNotification.putExtra("title", title);
+            pushNotification.putExtra("code", code);
             LocalBroadcastManager.getInstance(this).sendBroadcast(pushNotification);
 
         } catch (Exception e) {

@@ -14,12 +14,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.GravityEnum;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.MaterialDialog.ButtonCallback;
+import com.bdhobare.mpesa.Mode;
 import com.bdhobare.mpesa.Mpesa;
 import com.bdhobare.mpesa.interfaces.AuthListener;
 import com.bdhobare.mpesa.interfaces.MpesaListener;
@@ -28,9 +30,16 @@ import com.bdhobare.mpesa.models.STKPush.Builder;
 import com.bdhobare.mpesa.utils.Pair;
 
 public class MainActivity extends AppCompatActivity implements AuthListener, MpesaListener {
-    public static final String BUSINESS_SHORT_CODE = "174379";
-    public static final String PASSKEY = "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919";
+    //TODO: Replace these values from
+    public static final String BUSINESS_SHORT_CODE = "YOUR_SHORTCODE";
+    public static final String PASSKEY = "YOUR_PASS_KEY";
+    public static final String CONSUMER_KEY = "YOUR_CONSUMER_KEY";
+    public static final String CONSUMER_SECRET = "YOUR_CONSUMER_SECRET";
+    public static final String CALLBACK_URL = "YOUR_CALLBACK_URL";
+
+
     public static final String  NOTIFICATION = "PushNotification";
+    public static final String SHARED_PREFERENCES = "com.bdhobare.mpesa_android_sdk";
 
     Button pay;
     ProgressDialog dialog;
@@ -46,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements AuthListener, Mpe
         pay = (Button)findViewById(R.id.pay);
         phone = (EditText)findViewById(R.id.phone);
         amount = (EditText)findViewById(R.id.amount);
-        Mpesa.with(this, "tORzmtpZVFSjtAcjpUc2Xb7CmM2GAMsq", "y8QpZxpGzjGHUCCg");
+        Mpesa.with(this, CONSUMER_KEY, CONSUMER_SECRET);
         dialog = new ProgressDialog(this);
         dialog.setMessage("Processing");
         dialog.setIndeterminate(true);
@@ -70,7 +79,8 @@ public class MainActivity extends AppCompatActivity implements AuthListener, Mpe
                 if (intent.getAction().equals(NOTIFICATION)) {
                     String title = intent.getStringExtra("title");
                     String message = intent.getStringExtra("message");
-                    showDialog(title, message);
+                    int code = intent.getIntExtra("code", 0);
+                    showDialog(title, message, code);
 
                 }
             }
@@ -91,18 +101,19 @@ public class MainActivity extends AppCompatActivity implements AuthListener, Mpe
     private void pay(String phone, int amount){
         dialog.show();
         STKPush.Builder builder = new Builder(BUSINESS_SHORT_CODE, PASSKEY, amount,BUSINESS_SHORT_CODE, phone);
-        builder.setDescription("Test Description");
-        builder.setCallBackURL("http://f786afc6.ngrok.io/mpesa");
 
-        SharedPreferences sharedPreferences = getSharedPreferences("com.bdhobare.mpesa_android_sdk", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFERENCES, MODE_PRIVATE);
         String token = sharedPreferences.getString("InstanceID", "");
+
         builder.setFirebaseRegID(token);
         STKPush push = builder.build();
 
-        Mpesa.getInstance().lipa(this, push);
+
+
+        Mpesa.getInstance().pay(this, push);
 
     }
-    private void showDialog(String title, String message){
+    private void showDialog(String title, String message,int code){
         MaterialDialog dialog = new MaterialDialog.Builder(this)
                 .title(title)
                 .titleGravity(GravityEnum.CENTER)
@@ -121,6 +132,10 @@ public class MainActivity extends AppCompatActivity implements AuthListener, Mpe
                 .build();
         View view=dialog.getCustomView();
         TextView messageText = (TextView)view.findViewById(R.id.message);
+        ImageView imageView = (ImageView)view.findViewById(R.id.success);
+        if (code != 0){
+            imageView.setVisibility(View.GONE);
+        }
         messageText.setText(message);
         dialog.show();
     }

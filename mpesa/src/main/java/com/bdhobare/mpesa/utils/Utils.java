@@ -31,6 +31,10 @@ public class Utils {
             String p = phone.replaceFirst("^0", "254");
             return p;
         }
+        if(phone.length() == 13 && phone.startsWith("+")){
+            String p = phone.replaceFirst("^+", "");
+            return p;
+        }
         return phone;
     }
 }

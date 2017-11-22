@@ -15,27 +15,16 @@ import java.util.HashMap;
 
 public class STKPush {
 
-    @SerializedName("BusinessShortCode")
     private String businessShortCode;
-    @SerializedName("Password")
     private String password;
-    @SerializedName("Timestamp")
     private String timestamp;
-    @SerializedName("TransactionType")
     private String transactionType;
-    @SerializedName("Amount")
     private String amount;
-    @SerializedName("PartyA")
     private String partyA;
-    @SerializedName("PartyB")
     private String partyB;
-    @SerializedName("PhoneNumber")
     private String phoneNumber;
-    @SerializedName("CallBackURL")
     private String callBackURL;
-    @SerializedName("AccountReference")
     private String accountReference;
-    @SerializedName("TransactionDesc")
     private String transactionDesc;
 
     private STKPush(Builder builder) {
@@ -71,7 +60,7 @@ public class STKPush {
         private String partyA;
         private String partyB;
         private String phoneNumber;
-        private String callBackURL = "https://mpesa.bdhobare.com";
+        private String callBackURL = "https://mpesa.bdhobare.com/mpesa";
         private String accountReference;
         private String transactionDesc;
         private String firebaseRegID = "";

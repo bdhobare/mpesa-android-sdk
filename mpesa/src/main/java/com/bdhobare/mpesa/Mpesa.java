@@ -26,6 +26,7 @@ public class Mpesa {
     private static AuthListener authListener;
     private static Mpesa instance;
     private static MpesaListener mpesaListener;
+    private static Mode mode = Mode.SANDBOX;
     private Mpesa(){}
 
     public static void with (Context context, String key, String secret){
@@ -39,7 +40,10 @@ public class Mpesa {
             authListener = (AuthListener)context;
 
             //TODO initialize mpesa by getting the access token
-            new AuthService().execute(Config.SANDBOX_TOKEN_URL);
+            String url = Config.BASE_URL + Config.ACCESS_TOKEN_URL;
+            if (mode == Mode.PRODUCTION)
+                url = Config.PRODUCTION_BASE_URL + Config.ACCESS_TOKEN_URL;
+            new AuthService().execute(url);
         }
 
     }
@@ -50,7 +54,14 @@ public class Mpesa {
         }
         return instance;
     }
-    public void lipa(Context context, STKPush push){
+    public void setMode(Mode mode){
+        this.mode = mode;
+    }
+    public void setProductionBaseURL(String baseURL){
+        Config.PRODUCTION_BASE_URL = baseURL;
+    }
+
+    public void pay(Context context, STKPush push){
         //TODO pay
         if (! (context instanceof AuthListener)){
             throw new RuntimeException("Context must implement MpesaListener");
@@ -73,7 +84,10 @@ public class Mpesa {
             postData.put("AccountReference", push.getAccountReference());
             postData.put("TransactionDesc", push.getTransactionDesc());
 
-            new PayService().execute(Config.BASE_URL + "mpesa/stkpush/v1/processrequest", postData.toString());
+            String url = Config.BASE_URL + Config.PROCESS_REQUEST_URL;
+            if (mode == Mode.PRODUCTION)
+                url = Config.PRODUCTION_BASE_URL + Config.PROCESS_REQUEST_URL;
+            new PayService().execute(url, postData.toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -97,18 +111,23 @@ public class Mpesa {
                 Mpesa.getInstance().authListener.onAuthError(new Pair<>(result.code, "Invalid credentials"));
                 return;
             }
-            JsonParser jsonParser = new JsonParser();
-            JsonObject jo = (JsonObject) jsonParser.parse(result.message).getAsJsonObject();
-            if (result.code/100 != 2){
-                //Error occurred
-                String message = jo.get("errorMessage").getAsString();
-                Mpesa.getInstance().authListener.onAuthError(new Pair<>(result.code, message));
+            try {
+                JsonParser jsonParser = new JsonParser();
+                JsonObject jo = (JsonObject) jsonParser.parse(result.message).getAsJsonObject();
+                if (result.code / 100 != 2) {
+                    //Error occurred
+                    String message = jo.get("errorMessage").getAsString();
+                    Mpesa.getInstance().authListener.onAuthError(new Pair<>(result.code, message));
+                    return;
+                }
+                String access_token = jo.get("access_token").getAsString();
+                Preferences.getInstance().setAccessToken(access_token);
+                Mpesa.getInstance().authListener.onAuthSuccess();
                 return;
+            }catch (Exception e) {
+                String message = "Error completing fetching token.Please try again.";
+                Mpesa.getInstance().authListener.onAuthError(new Pair<>(result.code, message));
             }
-            String access_token = jo.get("access_token").getAsString();
-            Preferences.getInstance().setAccessToken(access_token);
-            Mpesa.getInstance().authListener.onAuthSuccess();
-            return;
         }
     }
     static class PayService extends AsyncTask<String, Void, Pair<Integer, String> >{
@@ -124,21 +143,27 @@ public class Mpesa {
                 Mpesa.getInstance().mpesaListener.onMpesaError(new Pair<>(418, Config.ERROR)); //User is a teapot :(
                 return;
             }
-            JsonParser jsonParser = new JsonParser();
-            JsonObject jo = (JsonObject) jsonParser.parse(result.message).getAsJsonObject();
-            if (result.code/100 != 2){
-                //Error occurred
-                if (jo.has("errorMessage")) {
-                    String message = jo.get("errorMessage").getAsString();
+            try {
+                JsonParser jsonParser = new JsonParser();
+
+                JsonObject jo = (JsonObject) jsonParser.parse(result.message).getAsJsonObject();
+                if (result.code / 100 != 2) {
+                    //Error occurred
+                    if (jo.has("errorMessage")) {
+                        String message = jo.get("errorMessage").getAsString();
+                        Mpesa.getInstance().mpesaListener.onMpesaError(new Pair<>(result.code, message));
+                        return;
+                    }
+                    String message = "Error completing payment.Please try again.";
                     Mpesa.getInstance().mpesaListener.onMpesaError(new Pair<>(result.code, message));
                     return;
                 }
+                Mpesa.getInstance().mpesaListener.onMpesaSuccess(jo.get("MerchantRequestID").getAsString(), jo.get("CheckoutRequestID").getAsString(), jo.get("CustomerMessage").getAsString());
+                return;
+            } catch (Exception e) {
                 String message = "Error completing payment.Please try again.";
                 Mpesa.getInstance().mpesaListener.onMpesaError(new Pair<>(result.code, message));
-                return;
             }
-            Mpesa.getInstance().mpesaListener.onMpesaSuccess(jo.get("MerchantRequestID").getAsString(), jo.get("CheckoutRequestID").getAsString(), jo.get("CustomerMessage").getAsString());
-            return;
         }
     }
 
