@@ -8,11 +8,11 @@ This SDK allows android developers to easily make MPESA payments on their apps.
 # Features
 The SDK includes the following:
 1. Android native  SDK to accept MPESA payments in less than 10 lines of code
-2. A sample backend in Laravel you can easily deploy to your server to quickly get started
-3. A sample SB schema for the backend
+2. A sample backend in Laravel you can easily deploy to your server to quickly get started.Get it [here](https://github.com/bdhobare/mpesa-android-sdk-backend.git).
+3. A sample DB schema for the backend
 4. Integration with Firebase Cloud Messaging to easily send push notifications to the app after payments
 5. A complete sample application you can easily run to see the SDK in action
-6. A free hosted backend at my website mpesa.bdhobare.com you can use for testing purposes.
+6. A free [hosted backend](https://mpesa.bdhobare.com) you can use for testing purposes.
 7. This nice README :(
 
 ## Getting started
