@@ -2,7 +2,8 @@
 This SDK allows android developers to easily make MPESA payments on their apps.
 
 # Screenshots
-![alt text](https://github.com/safaricom/LNMOnlineAndroidSample/blob/master/a.jpg "Screen A")
+
+![Screenshots](https://github.com/bdhobare/mpesa-android-sdk/blob/master/1.jpg "Sample")
 
 # Features
 The SDK includes the following:
