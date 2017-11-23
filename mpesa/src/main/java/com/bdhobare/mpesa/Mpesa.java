@@ -39,7 +39,25 @@ public class Mpesa {
             Preferences.getInstance().setSecret(secret);
             authListener = (AuthListener)context;
 
-            //TODO initialize mpesa by getting the access token
+            String url = Config.BASE_URL + Config.ACCESS_TOKEN_URL;
+            if (mode == Mode.PRODUCTION)
+                url = Config.PRODUCTION_BASE_URL + Config.ACCESS_TOKEN_URL;
+            new AuthService().execute(url);
+        }
+
+    }
+    public static void with (Context context, String key, String secret, Mode m){
+        if (! (context instanceof AuthListener)){
+            throw new RuntimeException("Context must implement AuthListener");
+        }
+        mode = m;
+        instance = null;
+        if (instance == null){
+            instance = new Mpesa();
+            Preferences.getInstance().setKey(key);
+            Preferences.getInstance().setSecret(secret);
+            authListener = (AuthListener)context;
+
             String url = Config.BASE_URL + Config.ACCESS_TOKEN_URL;
             if (mode == Mode.PRODUCTION)
                 url = Config.PRODUCTION_BASE_URL + Config.ACCESS_TOKEN_URL;
@@ -53,12 +71,6 @@ public class Mpesa {
             throw new RuntimeException("Mpesa must be initialized with key and secret");
         }
         return instance;
-    }
-    public void setMode(Mode mode){
-        this.mode = mode;
-    }
-    public void setProductionBaseURL(String baseURL){
-        Config.PRODUCTION_BASE_URL = baseURL;
     }
 
     public void pay(Context context, STKPush push){

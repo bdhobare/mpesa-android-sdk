@@ -6,7 +6,7 @@ package com.bdhobare.mpesa.utils;
 
 public class Config {
     public static final String BASE_URL = "https://sandbox.safaricom.co.ke/";
-    public static String PRODUCTION_BASE_URL = "https://www.safaricom.co.ke/"; //TODO: just a guess. Replace with a real url using Mpesa.getInstance().setProductionBaseURL(url)
+    public static String PRODUCTION_BASE_URL = "https://api.safaricom.co.ke/";
 
     public static final String ACCESS_TOKEN_URL = "oauth/v1/generate?grant_type=client_credentials";
     public static final String PROCESS_REQUEST_URL ="mpesa/stkpush/v1/processrequest";

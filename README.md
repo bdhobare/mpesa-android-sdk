@@ -34,6 +34,10 @@ Use the Lipa Na Mpesa Online Shortcode and Lipa Na Mpesa Online Passkey.
 2. Initialize the SDK
 
     ```Mpesa.with(context, CONSUMER_KEY, CONSUMER_SECRET);```
+    
+    You can optionally pass the mode as the third parameter , either `SANDBOX` or `PRODUCTION`.
+    
+    ```Mpesa.with(context, CONSUMER_KEY, CONSUMER_SECRET, Mode.PRODUCTION);```
 
 3. Implement the `AuthListener` interface in your activity.The interface provides two methods
 
@@ -114,18 +118,18 @@ Once the above steps are finished, the response from Safaricom will be sent to t
     *Note: This firebase token will be appended to the callback url to get a url of the format `http://YOUR_URL/mpesa/token`*
 
 ## Going live
-Although the SDK is still under development and might be unstable, it can be used in live apps.
-The SDK  has two operating modes: `SANDBOX` (default) and `PRODUCTION`.
-To change to production mode, call these methods:
+To go live you only need to pass one extra parameter when initializing the SDK
+
+   ``` Mpesa.with(context, CONSUMER_KEY, CONSUMER_SECRET, Mode.PRODUCTION); ```
  
-```Mpesa.getInstance().setMode(Mode.PRODUCTION);```
-
-``` Mpesa.getInstance().setProductionBaseURL(url); ```
-
-   **NOTE: When you set the mode to production, you have to provide the production base url.For sandbox , the base url is `https://sandbox.safaricom.co.ke/`. Failure to provide the production base url will lead to failure in requests.**
-
+As it is with the sandbox, you need to implement `AuthListener` interface.
+    
 ## Running the Sample Project
-To build the sample project, clone this project, open it in Android Studio and replace the credentials in  `MainActivity.java` with yours from the dashboard. Hit RUN and you are set.
+1. To build the sample project, clone this project, open it in Android Studio and replace the credentials in  `MainActivity.java` with yours from the Safaricom dashboard. 
+
+2. Create a Firebase project as described above and download your `google-services.json` file to the `app/` folder.
+
+3. Hit RUN in Android Studio.
 
 ## Contributing and Issues
 The project is really young and I would appreciate any pull requests or bug reports.Use [JIRA](https://issues.sonatype.org/browse/OSSRH-35483) for bug reports or email me directly.
