@@ -29,7 +29,7 @@ Use the *Lipa Na Mpesa Online Shortcode* and *Lipa Na Mpesa Online Passkey* from
 ## Integrating with your app
 1. Add the SDK to your project
 
-    ``` compile 'com.bdhobare:mpesa:0.0.5'```
+    ``` compile 'com.bdhobare:mpesa:0.0.6'```
     
 2. Initialize the SDK
 
