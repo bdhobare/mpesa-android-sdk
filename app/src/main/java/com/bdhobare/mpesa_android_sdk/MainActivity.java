@@ -31,10 +31,10 @@ import com.bdhobare.mpesa.utils.Pair;
 
 public class MainActivity extends AppCompatActivity implements AuthListener, MpesaListener {
     //TODO: Replace these values from
-    public static final String BUSINESS_SHORT_CODE = "174379";
-    public static final String PASSKEY = "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919";
-    public static final String CONSUMER_KEY = "tORzmtpZVFSjtAcjpUc2Xb7CmM2GAMsq";
-    public static final String CONSUMER_SECRET = "y8QpZxpGzjGHUCCg";
+    public static final String BUSINESS_SHORT_CODE = "YOUR_SHORTCODE";
+    public static final String PASSKEY = "YOUR_PASSKEY";
+    public static final String CONSUMER_KEY = "YOUR_KEY";
+    public static final String CONSUMER_SECRET = "YOUR_SECRET";
     public static final String CALLBACK_URL = "YOUR_CALLBACK_URL";
 
 
