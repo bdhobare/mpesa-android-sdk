@@ -23,8 +23,8 @@ To get started you need the following from the [Safaricom Developer dashboard](h
 4. A Firebase project with a server key. Create one [here](https://console.firebase.google.com/)
 
 
-For testing purposes, you can use get the Safaricom test credentials [here](https://developer.safaricom.co.ke/test_credentials)
-Use the Lipa Na Mpesa Online Shortcode and Lipa Na Mpesa Online Passkey.
+For testing purposes, you can get test credentials [here](https://developer.safaricom.co.ke/test_credentials).
+Use the *Lipa Na Mpesa Online Shortcode* and *Lipa Na Mpesa Online Passkey* from the link.
 
 ## Integrating with your app
 1. Add the SDK to your project
