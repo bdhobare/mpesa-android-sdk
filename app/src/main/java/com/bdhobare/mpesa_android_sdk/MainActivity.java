@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements AuthListener, Mpe
         pay = (Button)findViewById(R.id.pay);
         phone = (EditText)findViewById(R.id.phone);
         amount = (EditText)findViewById(R.id.amount);
-        Mpesa.with(this, CONSUMER_KEY, CONSUMER_SECRET, Mode.PRODUCTION);
+        Mpesa.with(this, CONSUMER_KEY, CONSUMER_SECRET);
         dialog = new ProgressDialog(this);
         dialog.setMessage("Processing");
         dialog.setIndeterminate(true);
