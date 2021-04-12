@@ -13,7 +13,7 @@ The SDK includes the following:
 4. Integration with Firebase Cloud Messaging to easily send push notifications to the app after payments
 5. A complete sample application you can easily run to see the SDK in action
 6. A free [hosted backend](https://mpesa.bdhobare.com) you can use for testing purposes.
-7. This nice README :(
+7. This nice README 😀
 
 ## Getting started
 To get started you need the following from the [Safaricom Developer dashboard](https://developer.safaricom.co.ke)
